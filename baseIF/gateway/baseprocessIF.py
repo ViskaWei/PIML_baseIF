@@ -31,29 +31,28 @@ class ProcessIF(BaseProcessIF):
         self.Storer : BaseStorerIF = None
         self.Process = None 
 
-    def set_object(self, OBJECT_PARAMS):
-        self.Loader.set_param(OBJECT_PARAMS)
+    def set_object(self, OBJECT_PARAM):
+        self.Loader.set_param(OBJECT_PARAM)
         self.Object = self.Loader.load()
 
-    def setup(self, PARAMS):
-        self.set_data(PARAMS["data"])
-        self.set_param(PARAMS["op"])
-        self.set_model(PARAMS["model"])
-        if "out" in PARAMS:
-            self.set_out(PARAMS["out"])
+    def setup(self, PARAM):
+        self.set_data(PARAM["data"])
+        self.set_param(PARAM["op"])
+        self.set_model(PARAM["model"])
+        if "out" in PARAM:
+            self.set_out(PARAM["out"])
 
-    def interact(self, PARAMS):
-        self.set_object(PARAMS["object"])
-        self.setup(PARAMS)
+    def interact(self, PARAM, Object=None):
+        if Object is None: self.set_object(PARAM["object"])
+        self.setup(PARAM)
         self.interact_on_Object(self.Object)
 
     def interact_on_Object(self, Object):
-        pass
-        # self.Process.set_process(self.OP_PARAM, self.OP_MODEL, self.OP_DATA)
-        # self.Process.start(Object)
+        self.Process.set_process(self.OP_PARAM, self.OP_MODEL, self.OP_DATA)
+        self.Process.start(Object)
 
-    def set_out(self, PARAMS):
-        self.OP_OUT = PARAMS
+    def set_out(self, PARAM):
+        self.OP_OUT = PARAM
 
     def finish(self, store_path):
         # store
