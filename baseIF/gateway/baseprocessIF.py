@@ -32,7 +32,7 @@ class ProcessIF(BaseProcessIF):
         self.Process = None 
 
     def set_object(self, OBJECT_PARAMS):
-        self.Loader.from_param(OBJECT_PARAMS)
+        self.Loader.set_param(OBJECT_PARAMS)
         self.Object = self.Loader.load()
 
     def setup(self, PARAMS):

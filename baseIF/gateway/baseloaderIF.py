@@ -7,7 +7,7 @@ class BaseLoaderIF(ABC):
     def set_loader(self, DATA_PATH):
         pass
 
-class LoaderIF(BaseLoaderIF):
+class PathLoaderIF(BaseLoaderIF):
     def __init__(self, DATA_PATH):
         self.DATA_PATH = DATA_PATH
         self.set_loader(DATA_PATH)
@@ -33,11 +33,11 @@ class LoaderIF(BaseLoaderIF):
             raise NotImplementedError(f"{DATA_PATH} not implemented")
 
 #-----------------------------------------------------------------------------
-class ObjectLoaderIF(LoaderIF):
+class DataLoaderIF(PathLoaderIF):
     def load(self):
         return self.loader.load(self.DATA_PATH)
 
-class DictLoaderIF(LoaderIF):
+class DictLoaderIF(PathLoaderIF):
     def load_dict_args(self):
         self.keys = self.loader.get_keys(self.DATA_PATH)
         return self.loader.load_dict_args(self.DATA_PATH)
@@ -48,3 +48,13 @@ class DictLoaderIF(LoaderIF):
     def is_arg(self, arg):
         return self.loader.is_arg(self.DATA_PATH, arg)
 
+#-----------------------------------------------------------------------------
+class ObjectLoaderIF(ABC):
+    @abstractmethod
+    def set_param(self, PARAM):
+        pass
+    @abstractmethod
+    def load(self):
+        pass
+
+#-----------------------------------------------------------------------------

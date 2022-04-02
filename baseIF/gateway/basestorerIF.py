@@ -1,6 +1,6 @@
 import os
 from abc import ABC, abstractmethod
-from baseIF.surface.IO.basestorer import BaseStorer, NpStorer, PickleStorer, H5pyStorer, ZarrStorer
+from baseIF.surface.IO.basestorer import NpStorer, PickleStorer, H5pyStorer, ZarrStorer
 
 class BaseStorerIF(ABC):
     @abstractmethod
@@ -33,7 +33,7 @@ class StorerIF(BaseStorerIF):
             raise NotImplementedError(f"{DATA_PATH} not implemented")
 
 #------------------------------------------------------------------------------
-class ObjectStorerIF(StorerIF):
+class DataStorerIF(StorerIF):
     def store(self, obj):
         self.storer.store(self.DATA_PATH, obj)
 
@@ -47,3 +47,13 @@ class DictStorerIF(StorerIF):
         else:
             DStore = DArgs
         self.storer.store_dict_args(self.DATA_PATH, DStore)
+
+#------------------------------------------------------------------------------
+
+class ObjectStorerIF(ABC):
+    @abstractmethod
+    def set_param(self, PARAM):
+        pass
+    @abstractmethod
+    def store(self):
+        pass
