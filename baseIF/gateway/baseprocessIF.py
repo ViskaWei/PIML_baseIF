@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from .baseloaderIF import ParamLoaderIF
+from .baseloaderIF import ObjectLoaderIF
 from .basestorerIF import BaseStorerIF
 
 class BaseProcessIF(ABC):
@@ -27,13 +27,13 @@ class ProcessIF(BaseProcessIF):
         self.OP_DATA : dict = {}
         self.OP_OUT  : dict = {}
         
-        self.loader : ParamLoaderIF = None
-        self.storer : BaseStorerIF = None
+        self.Loader : ObjectLoaderIF = None
+        self.Storer : BaseStorerIF = None
         self.Process = None 
 
     def set_object(self, OBJECT_PARAMS):
-        self.loader.set_param(OBJECT_PARAMS)
-        self.Object = self.loader.load()
+        self.Loader.from_param(OBJECT_PARAMS)
+        self.Object = self.Loader.load()
 
     def setup(self, PARAMS):
         self.set_data(PARAMS["data"])
