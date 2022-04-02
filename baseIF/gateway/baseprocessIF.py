@@ -42,14 +42,14 @@ class ProcessIF(BaseProcessIF):
         if "out" in PARAM:
             self.set_out(PARAM["out"])
 
-    def interact(self, PARAM, Object=None):
-        if Object is None: self.set_object(PARAM["object"])
+    def interact(self, PARAM):
+        self.set_object(PARAM["object"])
         self.setup(PARAM)
         self.interact_on_Object(self.Object)
 
+    @abstractmethod
     def interact_on_Object(self, Object):
-        self.Process.set_process(self.OP_PARAM, self.OP_MODEL, self.OP_DATA)
-        self.Process.start(Object)
+        pass
 
     def set_out(self, PARAM):
         self.OP_OUT = PARAM

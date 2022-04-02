@@ -13,10 +13,6 @@ class PathLoaderIF(BaseLoaderIF):
         self.set_loader(DATA_PATH)
     
     @classmethod
-    def from_param(cls, PARAM): 
-        return cls(PARAM["path"])
-
-    @classmethod
     def from_dir(cls, dir, name, ext):
         return cls(os.path.join(dir, name + ext))
 
